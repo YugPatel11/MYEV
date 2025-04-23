@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYEV - Auto Booking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F4F4F4;
+            color: #333;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #005f73;
+            color: white;
+        }
+
+        .logo img {
+            height: 60px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            margin-left: 20px;
+            transform: scale(1.05);
+        }
+
+        .nav a:hover {
+            transform: scale(1.05);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #008080, #005f73);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .instructions {
+            max-width: 400px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .instructions h2 {
+            margin-bottom: 10px;
+            color: #005f73;
+        }
+
+        .instructions p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .book-now {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .book-now a {
+            padding: 15px 30px;
+            font-size: 20px;
+            color: white;
+            background: #ff8c00;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .book-now a:hover {
+            background: #e67e22;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #005f73;
+            color: white;
+            margin-top: 45px;
+        }
+
+        footer a {
+            color: #FFA500;
+            text-decoration: underline;
+        }
+
+
+
+
+        @media (max-width: 370px) {
+            .logo img {
+                height: 50px;
+            }
+
+            .nav a {
+                font-size: 14px;
+            }
+
+            .nav a:hover{
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <header>
+        <div class="logo">
+            <img src="/static/logo_updated.png" alt="MYEV Logo">
+        </div>
+        <nav class="nav">
+            <a href="/contactus">Contact Us</a>
+            <a href="/aboutus">About Us</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Welcome to MYEV Auto Booking</h1>
+        <p>Fast, Reliable & Eco-friendly Auto Booking at Your Fingertips</p>
+    </div>
+
+    <div class="instructions">
+        <h2>How to Book an EV?</h2>
+        <p>➡️ Enter Pickup and Drop Location</p>
+        <p>➡️ Choose Time and Contact Info</p>
+        <p>➡️ Confirm Your Booking & Enjoy Your Ride!</p>
+    </div>
+
+    <div class="book-now">
+        <a href="booking">Book NOW</a>
+    </div>
+
+ 
+
+</body>
+
+</html>

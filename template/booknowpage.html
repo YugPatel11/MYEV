@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now - MYEV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F4F4F4;
+            color: #333;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #005f73;
+            color: white;
+        }
+
+        .logo img {
+            height: 60px;
+        }
+
+        .nav a {
+            transform: scale(1.03);
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #005f73;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .book-now {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .book-now button {
+            padding: 15px 30px;
+            font-size: 20px;
+            color: white;
+            background: #ff8c00;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .book-now button:hover {
+            background: #e67e22;
+        }
+
+        .payment-link {
+            display: block;
+            padding: 10px;
+            background: #0F9D58;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Grey background with slight transparency */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s;
+            opacity: 1;
+            visibility: visible;
+        }
+
+
+
+        .loader {
+            width: 300px;
+            height: auto;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #005f73;
+            color: white;
+            margin-top: 45px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <img src="/static/loading_ani.gif" alt="Loading..." class="loader">
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="/static/logo_updated.png" alt="MYEV Logo">
+        </div>
+        <nav class="nav">
+            <a href="/contactus">Contact Us</a>
+            <a href="/aboutus">About Us</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <form method="POST" action="" onsubmit="return render('home')">
+            {% csrf_token %}
+            <h2>Book Your Ride</h2>
+
+            <label for="pickup">Pickup Location</label>
+            <select id="pickup" required name="pickup">
+                <option value="">Select Pickup Location</option>
+                <option value="Boys Hostel">Boys Hostel</option>
+                <option value="Girls Hostel">Girls Hostel</option>
+                <option value="Main Gate">Main Gate</option>
+            </select>
+
+            <label for="drop">Drop Location</label>
+            <select id="drop" required name="drop">
+                <option value="">Select Drop Location</option>
+                <option value="Boys Hostel">Boys Hostel</option>
+                <option value="Girls Hostel">Girls Hostel</option>
+                <option value="Main Gate">Main Gate</option>
+            </select>
+
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" name="phone" required placeholder="Enter your phone number">
+
+            <label for="passengers">Number of Passengers</label>
+            <input type="number" id="passengers" name="passengers" min="1" required
+                placeholder="Enter number of passengers" oninput="updatePaymentLink()">
+            
+            <label for="time">Pickup Time</label>
+            <input type="time" id="time" required name="time">
+            
+            
+            <label for="payment">Payment Method</label>
+            <a id="payment-link" class="payment-link" href="#" target="_blank">Pay ₹10 via Google Pay</a>
+
+           
+
+            <div class="book-now">
+                <button type="submit">Confirm Booking</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>We value your feedback. <a href="/feedback">Give Feedback</a></p>
+    </footer>
+
+    <script>
+        function updatePaymentLink() {
+            let passengers = document.getElementById('passengers').value;
+            let amount = passengers * 10;
+            if (amount > 0) {
+                document.getElementById('payment-link').href = `upi://pay?pa=rojivadiyayug1@oksbi&pn=MYEV&am=${amount}&cu=INR`;
+                document.getElementById('payment-link').textContent = `Pay ₹${amount} via Google Pay`;
+            } else {
+                document.getElementById('payment-link').href = "#";
+                document.getElementById('payment-link').textContent = "Pay ₹10 via Google Pay";
+            }
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const preloader = document.getElementById("preloader");
+
+            // Ensure preloader is shown
+            preloader.style.opacity = "1";
+            preloader.style.visibility = "visible";
+
+            // Hide preloader after 1.5 seconds
+            setTimeout(() => {
+                preloader.style.opacity = "0";
+                preloader.style.visibility = "hidden";
+            }, 1500);
+
+            // Add loader when navigating between Home and Book Now
+            document.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", function (e) {
+                    const currentPage = window.location.pathname;
+                    const targetPage = new URL(this.href, window.location.origin).pathname;
+
+                    if (
+                        (currentPage === "/home" && targetPage === "/booknow") ||
+                        (currentPage === "/booknow" && targetPage === "/home")
+                    ) {
+                        e.preventDefault();
+                        preloader.style.opacity = "1";
+                        preloader.style.visibility = "visible";
+
+                        setTimeout(() => {
+                            window.location.href = this.href;
+                        }, 2000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
